@@ -4,8 +4,8 @@ FocusBoard is a responsive task management dashboard built as part of the FocusB
 
 All task data is stored in the browser using `localStorage`, so changes remain available even after refreshing the page.
 
-- **Live Demo:** https://your-app.vercel.app
-- **GitHub Repository:** https://github.com/your-username/focusboard
+- **Live Demo:** https://focus-board-livid.vercel.app/
+- **GitHub Repository:** https://github.com/venkateshmacherla/FocusBoard
 
 ---
 
