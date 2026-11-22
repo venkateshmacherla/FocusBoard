@@ -2,49 +2,43 @@
 
 ## Tools Used
 
-- Claude (Anthropic), used through the chat app.
+- Claude (Anthropic), accessed through the chat application.
 - No other AI tools were used.
 
 ## Representative Prompts
 
-1. "Go through the assignment instructions and reference materials. Help me understand what needs to be built and what features are required."
+1. "I was having trouble keeping task updates in sync after editing. Can you review the state management and suggest a better approach?"
 
-2. "Help me build the task management application using React and Vite, following the assignment requirements."
+2. "Task data wasn't always being saved correctly after a page refresh. Help me troubleshoot the localStorage implementation."
 
-3. "Compare my application with the provided desktop and mobile reference images. Tell me what is missing and help me fix the layout."
+3. "Can you compare my application against the provided desktop and mobile references and point out any responsive layout issues?"
 
-4. "Check the task creation, editing, deleting, search, filters and localStorage functionality. Help me identify and fix any issues."
-
-5. "Review the responsive design and accessibility."
+4. "The sidebar and mobile navigation weren't behaving consistently across screen sizes. Help me identify and fix the problem."
 
 ## AI-Assisted Areas
 
-Claude assisted with most parts of the development, including:
+I mainly used AI as a troubleshooting and review tool for a few of the more challenging parts of the assignment:
 
-- React and Vite project setup.
-- Component creation and application structure.
-- Task creation, editing and deletion.
-- Search, filters and dashboard statistics.
-- localStorage implementation.
-- CSS styling and responsive design.
-- Accessibility improvements.
-- Documentation and testing support.
+- Debugging task creation, editing and state update behaviour.
+- Reviewing localStorage implementation and data persistence issues.
+- Checking responsive layouts against the provided reference screens.
+- Identifying and resolving navigation issues on smaller devices.
 
-I reviewed the generated code and tested the application. I did not write the entire code manually from scratch.
+I reviewed the suggestions, tested the changes myself and only kept solutions that worked correctly within the application.
 
 ## Verified or Corrected Suggestion
 
-During testing, I noticed that the hamburger menu button was visible on the desktop screen, even though it should only appear on smaller screens.
+While testing the application, I noticed that the hamburger menu was still visible on desktop screens even though it was intended for mobile devices only.
 
-I corrected the CSS selector to make the button hidden on desktop and checked the result again.
+After reviewing the suggested solution, I adjusted the CSS rules and verified the behaviour across different screen sizes to ensure the menu only appears on smaller devices.
 
-I also added an `aria-label` to the mobile New Task button so screen readers can identify it.
+I also added an `aria-label` to the mobile "New Task" button to improve accessibility for screen reader users.
 
 ## Limitations
 
-- The Figma file could not be accessed by Claude. The design was created using the reference images provided with the assignment.
-- The sidebar links, project list and notification button are placeholders and are not fully functional.
+- The Figma design file was not directly available, so the interface was built using the reference images provided with the assignment.
+- Some navigation links and dashboard actions are included as UI placeholders and do not contain additional functionality.
 
 ## My Understanding
 
-I have reviewed the implementation and understand the main functionality, including task state management, localStorage, search, filters and dashboard statistics. I can explain the main features and discuss the implementation during the evaluation.
+I reviewed and tested the application throughout development and understand how the main features work, including task management, state handling, localStorage persistence, filtering and dashboard statistics.

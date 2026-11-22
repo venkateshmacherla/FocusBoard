@@ -1,81 +1,172 @@
 # FocusBoard
 
-A responsive, single-user task dashboard built for the FocusBoard frontend assessment. Create, edit, delete and filter tasks, track progress with live statistics, and flip through the Focus Notes carousel. Everything runs in the browser and is saved to `localStorage`.
+FocusBoard is a responsive task management dashboard built as part of the FocusBoard frontend assessment. The application allows users to create, edit, organise and track tasks while viewing progress through dashboard statistics.
 
-- **Live app:** `https://<your-app>.vercel.app` _(add after deploying)_
-- **GitHub:** `https://github.com/<your-username>/focusboard` _(add after pushing)_
+All task data is stored in the browser using `localStorage`, so changes remain available even after refreshing the page.
 
-## Tech stack
+- **Live Demo:** https://your-app.vercel.app
+- **GitHub Repository:** https://github.com/your-username/focusboard
 
-React 18 · Vite 5 · JavaScript (ES6+) · plain CSS (custom properties, media queries) · Lucide React icons · localStorage · no backend.
+---
+
+## Tech Stack
+
+- React 18
+- Vite
+- JavaScript (ES6+)
+- CSS
+- Lucide React Icons
+- localStorage
+
+No backend or database is used for this project.
+
+---
 
 ## Features
 
-| Area          | What is implemented                                                                                                                                                                          |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tasks         | Create, edit (same form), delete with confirmation dialog, inline status change                                                                                                              |
-| Sample data   | 7 seeded tasks with unique id, title, description, category, status, priority, due date                                                                                                      |
-| Statistics    | Total, in progress, completed and completion % — all derived from state (zero-task safe)                                                                                                     |
-| Search        | Case-insensitive, partial-match title search with clear button and empty state                                                                                                               |
-| Filters       | Status tabs (with counts), priority dropdown, reset; all combine with search                                                                                                                 |
-| Popups        | Toast messages for "Task created / updated / deleted" and for placeholder navigation                                                                                                         |
-| Charts        | Priority breakdown (counts, stacked bar, progress bars) and status overview (donut rings), drawn with SVG/CSS from task state                                                                |
-| Focus Notes   | 3 slides, Previous/Next (circular), clickable indicators, arrow-key support, live region                                                                                                     |
-| Persistence   | `focusboard_tasks` in localStorage; sample data only loads when nothing valid is saved                                                                                                       |
-| Responsive    | Checked at 390, 768 and 1440 px; sidebar becomes a drawer below 1100 px; no horizontal overflow                                                                                              |
-| Accessibility | Semantic landmarks, labelled fields, skip link, visible focus, focus-trapped dialogs with Esc, status never shown by colour alone (icon + text), 44 px touch targets, reduced-motion support |
+### Task Management
 
-## Run locally
+- Create new tasks
+- Edit existing tasks
+- Delete tasks with confirmation
+- Update task status directly from the dashboard
+
+### Search and Filtering
+
+- Search tasks by title
+- Filter tasks by status
+- Filter tasks by priority
+- Combine filters and search together
+
+### Dashboard Statistics
+
+- Total tasks
+- In Progress tasks
+- Completed tasks
+- Completion percentage
+
+Statistics are updated automatically whenever task data changes.
+
+### Data Persistence
+
+Task data is stored in `localStorage`, allowing information to persist after page refreshes. Sample data is only loaded when no valid saved data is available.
+
+### Focus Notes
+
+- Carousel navigation
+- Previous and next controls
+- Keyboard navigation support
+- Interactive slide indicators
+
+### Responsive Design
+
+The application has been tested on desktop, tablet and mobile screen sizes. The sidebar automatically adapts into a drawer navigation on smaller devices.
+
+### Accessibility
+
+- Semantic HTML structure
+- Form labels
+- Keyboard navigation support
+- Accessible dialogs
+- ARIA attributes where appropriate
+
+---
+
+## Running the Project
 
 ```bash
 npm install
-npm run dev        # http://localhost:5173
-npm run build      # production build in dist/
-npm run preview    # serve the build
+npm run dev
+
+npm run build
+
+npm run preview
 ```
 
-## Folder structure
+---
 
-```
+## Project Structure
+
+```text
 src/
-  components/  Sidebar, Header, StatCard, FocusNotes, SearchBar, FilterTabs,
-               TaskList, TaskCard, TaskForm, Modal, ConfirmDialog
-  data/        sampleTasks.js (seed data + status/priority/category constants)
-  hooks/       useLocalStorage.js
-  utils/       helpers.js (stats, date formatting, id creation, validation)
-  App.jsx      state + composition
-  index.css    design tokens and all styles
+├── components/
+├── data/
+├── hooks/
+├── utils/
+├── App.jsx
+└── index.css
 ```
 
-## State management choice
+---
 
-I used **React hooks only** (`useState`, `useMemo`, a custom `useLocalStorage` hook) with state held in `App.jsx` and passed down as props. The app has one data entity and a shallow component tree, so Context, Redux or Zustand would add code without solving a real problem.
+## State Management
 
-- **Single source of truth:** one `tasks` array in `App`. Cards, rows, statistics, filters and the form all read from it.
-- **Predictable mutations:** add, edit, status change and delete use functional updates (`setTasks(prev => ...)` with `map`/`filter`/spread), so existing state is never mutated. Edit keeps the original `id`.
-- **Derived values:** `stats`, `visibleTasks` and the tab counts are computed with `useMemo` from `tasks`, `search`, `statusFilter` and `priorityFilter`. They are never stored, so they cannot go stale.
-- **UI state:** search text, filters, which task is being edited/deleted, drawer open state — kept separately from task data.
-- **Carousel:** `FocusNotes` owns an `index` state; the visible slide, "n of 3" label and active dot are all computed from it. Navigation wraps around.
+The application uses React hooks for state management.
+
+A single `tasks` state acts as the source of truth for task data throughout the application. Statistics, filters and visible task lists are derived from that state, helping keep everything consistent and easier to maintain.
+
+Since the project only manages a single data entity, additional state management libraries such as Redux or Zustand were not necessary.
+
+---
 
 ## localStorage
 
-`useLocalStorage(key, initialValue, validate)` reads once via a lazy `useState` initialiser and writes in a `useEffect` whenever the value changes. If the key is missing, the JSON is corrupt, the shape fails `isValidTaskList`, or storage is blocked, it falls back to the sample tasks. Because the sample data is only an initial value, a refresh never overwrites saved work. The full task list is saved; filters and search are not persisted.
+Task data is saved to `localStorage` and loaded when the application starts. If no valid data exists, the application falls back to sample task data.
+
+Search input and filter selections are not persisted, allowing each session to start with a clean view.
+
+---
 
 ## Testing
 
-Manually and with an automated browser script, I checked: seeded data, create with validation (empty, spaces-only, missing date), trimmed titles, edit without duplicates, delete cancel/confirm, status changes updating the stats, search + status + priority together, empty states, persistence across refresh, corrupt storage fallback, zero tasks, carousel wrap-around and indicators, and no horizontal overflow at 390 / 768 / 1440 px.
+The application was tested manually across multiple scenarios, including:
+
+- Creating tasks
+- Editing tasks
+- Deleting tasks
+- Updating task status
+- Search functionality
+- Filtering functionality
+- Form validation
+- Empty states
+- localStorage persistence
+- Responsive layouts
+
+---
 
 ## Screenshots
 
-| Desktop (1440)                      | Mobile (390)                      |
-| ----------------------------------- | --------------------------------- |
-| ![Desktop](screenshots/desktop.png) | ![Mobile](screenshots/mobile.png) |
+### Desktop
 
-Tablet (768): `screenshots/tablet.png` · Create-task form: `screenshots/form-desktop.png`, `screenshots/form-mobile.png`
+![Desktop](screenshots/
 
-## Limitations and pending work
+### Tablet
 
-- **Figma fidelity:** styled to the three supplied reference images (dark sidebar with sections and pastel stat cards for desktop, purple carousel cards and bottom tab bar for mobile, grey-filled form fields for create-task). The exact Figma frames were not accessible, so final spacing, colours and the Focus Notes slide copy should be checked against them. Colours are CSS variables at the top of `src/index.css` (`--brand` is the main accent); slide text is the `SLIDES` array in `FocusNotes.jsx`.
-- Sidebar items (except Dashboard and My Tasks, which scroll to their sections), project list, bottom-bar Calendar/Alerts and the notification bell are visual placeholders that show a "coming soon" popup (no extra screens, per the brief).
-- Filters and search reset on refresh (only tasks are persisted).
-- Data is per browser; there is no sync or multi-user support.
+screenshots/tablet.png
+
+### Mobile
+
+screenshots/mobile.png
+
+### Create Task Form
+
+screenshots/form.png
+
+---
+
+## Limitations
+
+- The implementation was based on the reference images provided with the assessment, as the original Figma design was not accessible.
+- Some sidebar items and navigation actions are currently placeholders and do not navigate to additional screens.
+- Search and filter selections are reset when the page is refreshed.
+- Data is stored locally in the browser and is not shared between users or devices.
+
+---
+
+## Future Improvements
+
+- Backend integration for persistent user accounts.
+- Cloud-based task synchronisation.
+- Additional dashboard views and reports.
+- Enhanced task categorisation and filtering options.
+- Team collaboration features.
