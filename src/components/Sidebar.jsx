@@ -59,7 +59,12 @@ export default function Sidebar({ open, onClose, active, onNavigate }) {
       >
         <div className="sidebar__brand">
           <span className="logo" aria-hidden="true">
-            <CheckSquare size={18} strokeWidth={3} />
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="#fff">
+              <rect x="2" y="2" width="7" height="7" rx="2" />
+              <rect x="11" y="2" width="7" height="7" rx="2" />
+              <rect x="2" y="11" width="7" height="7" rx="2" />
+              <rect x="11" y="11" width="7" height="7" rx="2" />
+            </svg>
           </span>
           <span className="sidebar__name">FocusBoard</span>
           <button
