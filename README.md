@@ -138,19 +138,19 @@ The application was tested manually across multiple scenarios, including:
 
 ### Desktop
 
-![Desktop](screenshots/
+![alt text](screenshots/desktop.png)
 
 ### Tablet
 
-screenshots/tablet.png
+![focusboard/screenshots/tablet.png](screenshots/tablet.png)
 
 ### Mobile
 
-screenshots/mobile.png
+![focusboard/screenshots/mobile.png](screenshots/mobile.png)
 
 ### Create Task Form
 
-screenshots/form.png
+![focusboard/screenshots/form.png](screenshots/form.png)
 
 ---
 
