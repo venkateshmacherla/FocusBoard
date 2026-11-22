@@ -576,12 +576,14 @@ button {
 }
 
 .select {
-  min-height: 44px;
+  min-height: 42px;
   padding: 0 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-sm);
   background: var(--surface);
+  cursor: pointer;
 }
+
 .select--sm {
   min-height: 44px;
   min-width: 130px;
@@ -1855,7 +1857,6 @@ button {
   color: var(--muted);
 }
 
-/* Overall completion (needed by the assignment; compact so it stays close to Figma) */
 .completion {
   display: flex;
   align-items: center;
@@ -1899,7 +1900,6 @@ button {
   }
 }
 
-/* Phone: no top bar (Figma mobile has its own header), avatar returns to the header */
 @media (max-width: 560px) {
   .topbar {
     display: none;
@@ -1931,4 +1931,52 @@ ol {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+/* ---------- Phone top bar (Figma mobile): logo + FocusBoard + avatar ---------- */
+.topbar__brand {
+  display: none;
+}
+.logo {
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    display: flex;
+    height: 72px;
+    padding: 0 16px;
+  }
+  .topbar__menu,
+  .crumbs,
+  .topbar__chevron {
+    display: none;
+  }
+  .topbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .topbar__brand .logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6e5ff5, #5646e0);
+  }
+  .topbar__user {
+    padding: 0;
+  }
+  .topbar__user .avatar {
+    width: 44px;
+    height: 44px;
+    font-size: 14px;
+  }
+  .header__avatar {
+    display: none;
+  }
 }
