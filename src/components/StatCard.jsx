@@ -1,15 +1,16 @@
-export default function StatCard({ title, value, icon: Icon, tone = 'neutral', caption, children }) {
+export default function StatCard({ title, value, caption, icon: Icon, tone }) {
   return (
-    <article className={`stat stat--${tone}`}>
-      <div className="stat__top">
-        <h3>{title}</h3>
-        <span className="stat__icon" aria-hidden="true">
+    <article className={`statcard statcard--${tone}`}>
+      <div className="statcard__head">
+        <span className="statcard__icon" aria-hidden="true">
           <Icon size={18} />
         </span>
+        <h3>{title}</h3>
       </div>
-      <p className="stat__value">{value}</p>
-      {caption && <p className="stat__caption">{caption}</p>}
-      {children}
+      <p className="statcard__row">
+        <span className="statcard__value">{value}</span>
+        <span className="statcard__caption">{caption}</span>
+      </p>
     </article>
-  )
+  );
 }

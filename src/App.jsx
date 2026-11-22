@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
-import { CheckCircle2, ListChecks, LoaderCircle, Percent } from "lucide-react";
+import { Check, Clock, List } from "lucide-react";
 import Sidebar from "./components/Sidebar.jsx";
+import TopBar from "./components/TopBar.jsx";
 import Header from "./components/Header.jsx";
 import StatCard from "./components/StatCard.jsx";
 import FocusNotes from "./components/FocusNotes.jsx";
@@ -11,8 +12,6 @@ import TaskForm from "./components/TaskForm.jsx";
 import ConfirmDialog from "./components/ConfirmDialog.jsx";
 import MobileNav from "./components/MobileNav.jsx";
 import Toast from "./components/Toast.jsx";
-import PriorityBreakdown from "./components/PriorityBreakdown.jsx";
-import StatusOverview from "./components/StatusOverview.jsx";
 import useLocalStorage from "./hooks/useLocalStorage.js";
 import { sampleTasks } from "./data/sampleTasks.js";
 import { calculateStats, createId, isValidTaskList } from "./utils/helpers.js";
@@ -120,8 +119,6 @@ export default function App() {
     };
   }, [tasks, search, priorityFilter]);
 
-  const share = (n) =>
-    stats.total === 0 ? 0 : Math.round((n / stats.total) * 100);
   const focusSearch = () => {
     const el = document.getElementById("task-search");
     el?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -144,65 +141,61 @@ export default function App() {
       />
 
       <div className="shell">
+        <TopBar
+          onMenu={() => setMenuOpen(true)}
+          onProfile={() => comingSoon("Account menu")}
+        />
         <Header
           onMenu={() => setMenuOpen(true)}
           onAdd={() => setFormState({ open: true, task: null })}
-          onBell={() => comingSoon("Notifications")}
         />
 
         <main id="main" className="main" tabIndex={-1}>
+          <FocusNotes />
+
           <section aria-labelledby="overview-title">
-            <h2 id="overview-title" className="section-title">
+            <h2 id="overview-title" className="sr-only">
               Overview
             </h2>
             <div className="stats">
               <StatCard
                 title="Total tasks"
                 value={stats.total}
-                icon={ListChecks}
-                tone="neutral"
-                caption="on your board"
+                caption="Across all projects"
+                icon={List}
+                tone="total"
               />
               <StatCard
                 title="In progress"
                 value={stats.inProgress}
-                icon={LoaderCircle}
+                caption="Keep the momentum"
+                icon={Clock}
                 tone="progress"
-                caption={`${share(stats.inProgress)}% of all tasks`}
               />
               <StatCard
                 title="Completed"
                 value={stats.completed}
-                icon={CheckCircle2}
+                caption="Great work this week"
+                icon={Check}
                 tone="done"
-                caption={`${share(stats.completed)}% of all tasks`}
               />
-              <StatCard
-                title="Completion"
-                value={`${stats.completion}%`}
-                icon={Percent}
-                tone="brand"
+            </div>
+
+            <div className="completion">
+              <span>Overall completion</span>
+              <div
+                className="completion__bar"
+                role="progressbar"
+                aria-label="Overall completion"
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={stats.completion}
               >
-                <div
-                  className="meter"
-                  role="progressbar"
-                  aria-label="Completion"
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-valuenow={stats.completion}
-                >
-                  <span style={{ width: `${stats.completion}%` }} />
-                </div>
-              </StatCard>
+                <span style={{ width: `${stats.completion}%` }} />
+              </div>
+              <strong>{stats.completion}%</strong>
             </div>
           </section>
-
-          <FocusNotes />
-
-          <div className="insights">
-            <PriorityBreakdown tasks={tasks} />
-            <StatusOverview stats={stats} />
-          </div>
 
           <section className="board" aria-labelledby="tasks-title">
             <div className="board__head">
