@@ -1,15 +1,6 @@
-import { Bell, Menu, Plus } from "lucide-react";
+import { Menu, Plus } from "lucide-react";
 
-// Shown in the mobile greeting. Change this to your name.
-const USER_NAME = "Venkyy";
-
-export default function Header({ onMenu, onAdd, onBell }) {
-  const today = new Date().toLocaleDateString("en-IN", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  });
-
+export default function Header({ onMenu, onAdd }) {
   return (
     <header className="header">
       <button
@@ -22,31 +13,27 @@ export default function Header({ onMenu, onAdd, onBell }) {
       </button>
 
       <div className="header__title">
-        {/* Desktop/tablet show "My Tasks"; phones show the greeting. Hidden text is not read by screen readers. */}
+        {/* Desktop/tablet show the Figma heading; phones show the greeting. Hidden text is not read by screen readers. */}
         <h1>
-          <span className="title-desktop">My Tasks</span>
+          <span className="title-desktop"> Your work, in focus.</span>
           <span className="title-mobile">
-            Hello, <strong>{USER_NAME}</strong>!
+            {" "}
+            Your work,
+            <br /> in focus.
           </span>
         </h1>
         <p>
           <span className="sub-desktop">
-            Plan, track and finish what matters · {today}
+            Plan your day, stay organized, and celebrate small wins.
           </span>
-          <span className="sub-mobile">Have a nice day!</span>
+          <span className="sub-mobile">
+            Stay organized and keep moving forward.
+          </span>
         </p>
       </div>
 
       <div className="header__actions">
-        <button
-          type="button"
-          className="icon-btn icon-btn--bordered"
-          aria-label="Notifications"
-          onClick={onBell}
-        >
-          <Bell size={20} />
-        </button>
-        <span className="avatar" role="img" aria-label="Profile">
+        <span className="avatar header__avatar" role="img" aria-label="Profile">
           VM
         </span>
         <button
@@ -56,7 +43,7 @@ export default function Header({ onMenu, onAdd, onBell }) {
           aria-label="New task"
         >
           <Plus size={18} aria-hidden="true" />
-          <span>New Task</span>
+          <span>New task</span>
         </button>
       </div>
     </header>
