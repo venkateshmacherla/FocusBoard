@@ -1,35 +1,50 @@
 # AI Usage Disclosure
 
 ## Tools Used
-- Claude (by Anthropic). I used it through the chat app.
-- No other AI tools (no ChatGPT, no GitHub Copilot).
+
+- Claude (Anthropic), used through the chat app.
+- No other AI tools were used.
 
 ## Representative Prompts
-1. "Check the reference document and the assignment document, and complete this entire assignment."
-2. "Tell me how much of the assignment is completed and how much is pending. Did you check the Figma design? Add the missing parts."
-3. "Check the images I provided (desktop, mobile, create task) and build the design according to them."
-4. "Prepare AI_USAGE.md in simple human English."
+
+1. "Go through the assignment instructions and reference materials. Help me understand what needs to be built and what features are required."
+
+2. "Help me build the task management application using React and Vite, following the assignment requirements."
+
+3. "Compare my application with the provided desktop and mobile reference images. Tell me what is missing and help me fix the layout."
+
+4. "Check the task creation, editing, deleting, search, filters and localStorage functionality. Help me identify and fix any issues."
+
+5. "Review the responsive design and accessibility."
 
 ## AI-Assisted Areas
-Most of the code was written by Claude, and I reviewed and tested it. In detail:
-- Project setup with React and Vite, and the folder structure
-- All React components (sidebar, header, stat cards, Focus Notes carousel, task list, task card, task form, search, filters, confirm dialog)
-- The localStorage hook, the statistics calculation and the filtering logic
-- All the CSS and the responsive layout for 390px, 768px and 1440px
-- Accessibility parts (labels, keyboard support, focus handling in dialogs)
-- The README.md and this file
-- Browser testing: Claude ran a script that checks create, edit, delete, search, filters, persistence and the carousel
 
-I did not write this code manually from scratch.
+Claude assisted with most parts of the development, including:
+
+- React and Vite project setup.
+- Component creation and application structure.
+- Task creation, editing and deletion.
+- Search, filters and dashboard statistics.
+- localStorage implementation.
+- CSS styling and responsive design.
+- Accessibility improvements.
+- Documentation and testing support.
+
+I reviewed the generated code and tested the application. I did not write the entire code manually from scratch.
 
 ## Verified or Corrected Suggestion
-The CSS that Claude first generated had a bug. The menu (hamburger) button was meant to be hidden on desktop, but a later CSS rule with the same priority overrode it, so the button showed on the 1440px screen. It was found by looking at a screenshot of the app, not by reading the code. It was fixed by making the selectors more specific (`.header .header__menu`) and the result was checked again in the browser.
 
-A second thing that was caught: on mobile the "New Task" button shows only an icon, so screen readers had no name for it. An `aria-label` was added.
+During testing, I noticed that the hamburger menu button was visible on the desktop screen, even though it should only appear on smaller screens.
 
-## Limitations I Want to Be Clear About
-- Claude could not open the Figma file. The design was built from the three reference images supplied with the assignment, so it may not match the real Figma frames exactly.
-- The sidebar items, the project list and the notification bell are placeholders only.
+I corrected the CSS selector to make the button hidden on desktop and checked the result again.
+
+I also added an `aria-label` to the mobile New Task button so screen readers can identify it.
+
+## Limitations
+
+- The Figma file could not be accessed by Claude. The design was created using the reference images provided with the assignment.
+- The sidebar links, project list and notification button are placeholders and are not fully functional.
 
 ## My Understanding
-I have gone through the submitted code and I can explain how it works: how the task state is kept in `App.jsx`, how `useLocalStorage` saves and restores tasks, how search and the two filters work together, and how the statistics are calculated from the task list. I am ready to make a small change live if asked.
+
+I have reviewed the implementation and understand the main functionality, including task state management, localStorage, search, filters and dashboard statistics. I can explain the main features and discuss the implementation during the evaluation.

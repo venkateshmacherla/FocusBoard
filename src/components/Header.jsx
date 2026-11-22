@@ -1,5 +1,8 @@
 import { Bell, Menu, Plus } from "lucide-react";
 
+// Shown in the mobile greeting. Change this to your name.
+const USER_NAME = "Venkyy";
+
 export default function Header({ onMenu, onAdd, onBell }) {
   const today = new Date().toLocaleDateString("en-IN", {
     weekday: "long",
@@ -17,10 +20,23 @@ export default function Header({ onMenu, onAdd, onBell }) {
       >
         <Menu size={22} />
       </button>
+
       <div className="header__title">
-        <h1>My Tasks</h1>
-        <p>Plan, track and finish what matters · {today}</p>
+        {/* Desktop/tablet show "My Tasks"; phones show the greeting. Hidden text is not read by screen readers. */}
+        <h1>
+          <span className="title-desktop">My Tasks</span>
+          <span className="title-mobile">
+            Hello, <strong>{USER_NAME}</strong>!
+          </span>
+        </h1>
+        <p>
+          <span className="sub-desktop">
+            Plan, track and finish what matters · {today}
+          </span>
+          <span className="sub-mobile">Have a nice day!</span>
+        </p>
       </div>
+
       <div className="header__actions">
         <button
           type="button"

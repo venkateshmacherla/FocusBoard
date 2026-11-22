@@ -1423,3 +1423,29 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* ---------- Header: greeting on phones ---------- */
+.title-mobile,
+.sub-mobile {
+  display: none;
+}
+
+@media (max-width: 560px) {
+  .title-desktop,
+  .sub-desktop {
+    display: none;
+  }
+  .title-mobile,
+  .sub-mobile {
+    display: inline;
+  }
+  .title-mobile {
+    font-weight: 500;
+  }
+  .title-mobile strong {
+    font-weight: 800;
+  }
+  .header__title p {
+    color: #8a8da3;
+  }
+}
